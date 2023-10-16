@@ -1,0 +1,13 @@
+# Ignorar archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de respaldo generados por editores de texto
+*~
+
+# Ignorar carpetas específicas
+/node_modules
+/build
+
+# Ignorar archivos de entorno (.env)
+.env
