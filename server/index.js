@@ -18,7 +18,6 @@ app.use(cors({
   }
 }));
 
-
 // Middleware para el manejo de JSON en las solicitudes
 app.use(express.json());
 
@@ -28,6 +27,7 @@ app.get('/', (req, res) => {
 
 app.use('/', require('./routes/categories'));
 app.use('/', require('./routes/colors'));
+app.use('/', require('./routes/users'));
 
 app.listen(port, () => {
   console.log(`El servidor está corriendo en http://localhost:${port}`);
