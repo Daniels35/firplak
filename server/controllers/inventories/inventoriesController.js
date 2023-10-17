@@ -30,32 +30,41 @@ exports.moveProductsToPto1 = (req, res) => {
       }
 
       const productData = results[0];
-      // Inserta los datos en Pto1 sin incluir el estado y con transfer_date
-      db.query('INSERT INTO pto1 (id, product_id, cantidad, orden_id, transfer_date) VALUES (?, ?, ?, ?, ?);', [productData.id, productData.product_id, productData.cantidad, productData.orden_id, formattedDate], (err, insertResult) => {
-        if (err) {
-          return db.rollback(() => {
-            res.status(500).json({ error: 'Error al insertar los datos en pto1', err });
-          });
-        }
-
-        // Confirma la transacción
-        db.commit((err) => {
+      
+      // Verifica si el estado es "completado" antes de realizar la inserción en Pto1
+      if (productData.estado === 'completado') {
+        // Inserta los datos en Pto1 sin incluir el estado y con transfer_date
+        db.query('INSERT INTO pto1 (id, product_id, cantidad, orden_id, transfer_date) VALUES (?, ?, ?, ?, ?);', [productData.id, productData.product_id, productData.cantidad, productData.orden_id, formattedDate], (err, insertResult) => {
           if (err) {
             return db.rollback(() => {
-              res.status(500).json({ error: 'Error al confirmar la transacción', err });
+              res.status(500).json({ error: 'Error al insertar los datos en pto1', err });
             });
           }
 
-          // Elimina los datos de Pto2
-          db.query('DELETE FROM pto2 WHERE id = ?;', [id], (err, deleteResult) => {
+          // Confirma la transacción
+          db.commit((err) => {
             if (err) {
-              return res.status(500).json({ error: 'Error al eliminar los datos de pto2', err });
+              return db.rollback(() => {
+                res.status(500).json({ error: 'Error al confirmar la transacción', err });
+              });
             }
 
-            res.json({ message: 'Datos movidos con éxito a pto1' });
+            // Elimina los datos de Pto2
+            db.query('DELETE FROM pto2 WHERE id = ?;', [id], (err, deleteResult) => {
+              if (err) {
+                return res.status(500).json({ error: 'Error al eliminar los datos de pto2', err });
+              }
+
+              res.json({ message: 'Datos movidos con éxito a pto1' });
+            });
           });
         });
-      });
+      } else {
+        // Si el estado no es "completado," devuelve un error.
+        db.rollback(() => {
+          res.status(400).json({ error: 'No se puede mover el producto porque aún no esta completado.' });
+        });
+      }
     });
   });
 };

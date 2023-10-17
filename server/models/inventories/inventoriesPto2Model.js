@@ -9,8 +9,10 @@ db.query(`
     id VARCHAR(36) DEFAULT (UUID()),
     product_id VARCHAR(255) NOT NULL,
     cantidad INT NOT NULL,
-    orden_id VARCHAR(36) NOT NULL,
-    estado ENUM('pendiente', 'procesando', 'completada') NOT NULL
+    orden_id VARCHAR(36),
+    estado ENUM('pendiente', 'procesando', 'completada') NOT NULL,
+    fecha_solicitud VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL
   )
 `, (err) => {
   if (err) {
@@ -47,6 +49,13 @@ InventoriesPto2Model.getInventoryById = (id, callback) => {
 // Crear un nuevo registro de inventario Pto2
 InventoriesPto2Model.createInventory = (newInventory, callback) => {
   newInventory.id = uuid.v4();
+  newInventory.orden_id = uuid.v4();
+  const currentDate = new Date();
+  const options = { timeZone: 'America/Bogota' };
+  const formattedDate = currentDate.toLocaleString('es-CO', options);
+  
+  newInventory.fecha_solicitud = formattedDate;
+  
   db.query('INSERT INTO pto2 SET ?', newInventory, (err, result) => {
     if (err) {
       return callback(err, null);

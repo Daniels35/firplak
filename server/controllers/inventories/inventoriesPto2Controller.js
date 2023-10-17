@@ -27,7 +27,7 @@ exports.getInventoryPto2ById = (req, res) => {
 exports.createInventoryPto2 = (req, res) => {
   const newInventory = req.body;
 
-  if (!newInventory.product_id || !newInventory.cantidad || !newInventory.orden_id || !newInventory.estado) {
+  if (!newInventory.product_id || !newInventory.cantidad || !newInventory.estado) {
     return res.status(400).json({ error: 'Los campos product_id, cantidad, orden_id y estado son obligatorios' });
   }
 
