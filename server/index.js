@@ -5,6 +5,7 @@ const port = 3001;
 
 // Configurar la base de datos
 const db = require('./config/database');
+require('./config/cloudinary');
 
 const allowedOrigins = ['http://localhost:3000', 'http://another-example.com'];
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.use('/', require('./routes/categories'));
 app.use('/', require('./routes/colors'));
 app.use('/', require('./routes/users'));
+app.use('/', require('./routes/products'));
 
 app.listen(port, () => {
   console.log(`El servidor está corriendo en http://localhost:${port}`);
