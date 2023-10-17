@@ -10,7 +10,7 @@ db.query(`
     product_id VARCHAR(255) NOT NULL,
     cantidad INT NOT NULL,
     orden_id VARCHAR(36) NOT NULL,
-    transfer_date DATETIME NOT NULL
+    transfer_date VARCHAR(36) NOT NULL
   )
 `, (err) => {
   if (err) {
