@@ -32,7 +32,7 @@ exports.moveProductsToPto1 = (req, res) => {
       const productData = results[0];
       
       // Verifica si el estado es "completado" antes de realizar la inserción en Pto1
-      if (productData.estado === 'completado') {
+      if (productData.estado === 'completada') {
         // Inserta los datos en Pto1 sin incluir el estado y con transfer_date
         db.query('INSERT INTO pto1 (id, product_id, cantidad, orden_id, transfer_date) VALUES (?, ?, ?, ?, ?);', [productData.id, productData.product_id, productData.cantidad, productData.orden_id, formattedDate], (err, insertResult) => {
           if (err) {

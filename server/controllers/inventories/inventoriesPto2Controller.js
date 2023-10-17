@@ -46,7 +46,7 @@ exports.updateInventoryPto2 = (req, res) => {
 
   InventoriesPto2Model.updateInventory(id, updatedInventory, (err, inventory) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al actualizar el registro de inventario Pto2' });
+      return res.status(500).json({ error: 'Error al actualizar el registro de inventario Pto2', err });
     }
     res.json({ message: 'Registro de inventario Pto2 actualizado con éxito', inventory });
   });
