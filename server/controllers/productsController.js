@@ -1,4 +1,6 @@
 const ProductModel = require('../models/productsModel');
+const uuid = require('uuid');
+const db = require('../config/database');
 
 // Obtener todos los productos
 exports.getAllProducts = (req, res) => {
@@ -21,22 +23,17 @@ exports.getProductById = (req, res) => {
   });
 };
 
-// Crear un nuevo producto
-exports.createProduct = (req, res) => {
-  const newProduct = req.body;
-
-  if (!newProduct.name || !newProduct.description || !newProduct.price || !newProduct.category_id || !newProduct.color_id) {
-    return res.status(400).json({ error: 'Nombre, descripción, precio, categoria y color son requeridos' });
-  }
-
-  ProductModel.createProduct(newProduct, (err, product) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al crear el producto', err });
-    }
-    res.json({ message: 'Producto agregado con éxito', product });
-  });
-};
-
+// Crear un nuevo producto en la base de datos con la URL de la imagen //REVISAR//
+exports.createProductWithImage = (newProduct, callback) => {
+    newProduct.id = uuid.v4();
+    db.query('INSERT INTO products SET ?', newProduct, (err, result) => {
+      if (err) {
+        return callback(err, null);
+      }
+      callback(null, newProduct);
+    });
+  };
+  
 // Actualizar un producto por su ID
 exports.updateProduct = (req, res) => {
   const id = req.params.id;

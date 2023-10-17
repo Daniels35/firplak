@@ -1,5 +1,6 @@
 const db = require('../config/database');
 const uuid = require('uuid');
+
 const ProductModel = {};
 
 // Crear la tabla de productos si no existe
@@ -41,16 +42,18 @@ ProductModel.getProductById = (id, callback) => {
   });
 };
 
-// Crear un nuevo producto
-ProductModel.createProduct = (newProduct, callback) => {
-    newProduct.id = uuid.v4(); // Genera un UUID v4 único
-    db.query('INSERT INTO products SET ?', newProduct, (err, result) => {
-      if (err) {
-        return callback(err, null);
-      }
-      callback(null, newProduct);
-    });
-  };
+// Crear un nuevo producto REVISAR
+// ProductModel.createProductWithImage = (newProduct, callback) => {
+//     newProduct.id = uuid.v4();
+//     console.log("Antes de inyectarlo: ", newProduct);
+//     db.query('INSERT INTO products SET ?', newProduct, (err, result) => {
+//       if (err) {
+//         return callback(err, null);
+//       }
+//       console.log("Despues de inyectarlo: ", newProduct);
+//       callback(null, newProduct);
+//     });
+//   };
 
 // Actualizar un producto por su ID
 ProductModel.updateProduct = (id, updatedProduct, callback) => {
