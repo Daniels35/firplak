@@ -30,6 +30,7 @@ app.use('/', require('./routes/categories'));
 app.use('/', require('./routes/colors'));
 app.use('/', require('./routes/users'));
 app.use('/', require('./routes/products'));
+app.use('/', require('./routes/inventories/inventoriesPto1'));
 
 app.listen(port, () => {
   console.log(`El servidor está corriendo en http://localhost:${port}`);
