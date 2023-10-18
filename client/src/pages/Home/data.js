@@ -1,0 +1,63 @@
+const surveyData = {
+  items: [
+    {
+      type: "text",
+      label: "Nombre completo",
+      name: "full_name",
+      required: true
+    },
+    {
+      type: "email",
+      label: "Correo electrónico",
+      name: "email",
+      required: true
+    },
+    {
+      type: "tel",
+      label: "Número de teléfono",
+      name: "phone_number",
+      required: true
+    },
+    {
+      type: "date",
+      label: "Fecha de inicio",
+      name: "start_date",
+      required: false
+    },
+    {
+      type: "select",
+      label: "¿Cuál es tu idioma preferido?",
+      name: "preferred_language",
+      options: [
+        { label: "Inglés", value: "english" },
+        { label: "Español", value: "spanish" },
+        { label: "Francés", value: "french" },
+        { label: "Alemán", value: "german" }
+      ],
+      required: true
+    },
+    {
+      type: "radio",
+      label: "¿Cómo nos encontraste?",
+      name: "how_found",
+      options: [
+        { label: "Amigos", value: "friends" },
+        { label: "Publicidad", value: "advertisement" },
+        { label: "Búsqueda en línea", value: "online_search" },
+      ],
+      required: true
+    },
+    {
+      type: "checkbox",
+      label: "¿Desea recibir nuestro boletín informativo?",
+      name: "newsletter_subscription",
+      required: false
+    },
+    {
+      type: "submit",
+      label: "Enviar"
+    }
+  ]
+};
+
+export default surveyData;

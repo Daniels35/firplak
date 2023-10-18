@@ -1,6 +1,6 @@
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
-const OrdersModel = require('../models/ordersModel');
+const OrdersModel = require('../../models/ordersModel');
 const QRCode = require('qrcode');
 
 function formatPriceWithCommas(price) {

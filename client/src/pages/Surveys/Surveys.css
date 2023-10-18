@@ -1,0 +1,21 @@
+.Surveys-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    color: gray;
+    min-height: 100%;
+  }
+  
+  @media (max-width: 486px) {
+    .Surveys-contenedor {
+      width: 100%;
+    }
+    
+    .Surveys-item {
+        min-width: 245px;
+      
+    }
+  }
+  

@@ -1,4 +1,4 @@
-const OrdersModel = require('../models/ordersModel');
+const OrdersModel = require('../../models/ordersModel');
 
 // Crear un nuevo pedido
 exports.createOrder = (req, res) => {

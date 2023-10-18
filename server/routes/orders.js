@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const ordersDeliveryController = require('../controllers/ordersDeliveryController');
-const ordersController = require('../controllers/ordersController');
-const ordersDeliveryPreviewController = require('../controllers/ordersDeliveryPreviewController');
+const ordersDeliveryController = require('../controllers/orders/ordersDeliveryController');
+const ordersController = require('../controllers/orders/ordersController');
+const ordersDeliveryPreviewController = require('../controllers/orders/ordersDeliveryPreviewController');
 
 // Ruta para crear un nuevo pedido
 router.post('/orders', ordersController.createOrder);
