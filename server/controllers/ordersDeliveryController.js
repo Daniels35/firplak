@@ -1,10 +1,12 @@
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const OrdersModel = require('../models/ordersModel');
+const QRCode = require('qrcode');
 
 function formatPriceWithCommas(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  }
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
 // Controlador para generar un documento de entrega en formato PDF
 exports.generateDeliveryDocument = (req, res) => {
   const orderId = req.params.id;
@@ -24,7 +26,7 @@ exports.generateDeliveryDocument = (req, res) => {
     doc.moveDown(2);
     doc.text(`ID de la Orden: ${order.id}`);
     doc.moveDown();
-      // Dar formato a la fecha en que se generó la orden
+    // Dar formato a la fecha en que se generó la orden
     const generatedDateOptions = { timeZone: 'America/Bogota' };
     const formattedGeneratedDate = order.generated_date.toLocaleString('es-CO', generatedDateOptions);
     doc.text(`Fecha en que la Orden se genero: ${formattedGeneratedDate}`);
@@ -47,7 +49,7 @@ exports.generateDeliveryDocument = (req, res) => {
     doc.moveDown();
     order.products.forEach((product) => {
       doc.text(`- Producto: ${product.id_product}, Cantidad: ${product.cantidad}`);
-    })
+    });
     doc.moveDown(3);
     const formattedPrice = formatPriceWithCommas(order.price);
     doc.text('', { continued: true }); // Espacio para mover el texto a la derecha
@@ -57,11 +59,27 @@ exports.generateDeliveryDocument = (req, res) => {
     doc.moveTo(70, doc.y).lineTo(200, doc.y, { width: 1 }).stroke();
     doc.moveDown(0.5);
     doc.text('Firma Cliente');
-    // Finalizar el documento
-    doc.end();
-    // Enviar el documento como respuesta al cliente
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename=Documento_Entrega_${orderId}.pdf`);
-    doc.pipe(res);
+
+    // Generar un enlace o URL que apunte al documento o a una página de edición 
+    //(CAMBIARLO PARA QUE ENVIE AL REPARTIDOR A LA ENTREGA (POD))
+    const documentUrl = `${process.env.BASE_URL}/orders/${orderId}/delivery/preview`;
+
+    // Generar el código QR
+    QRCode.toDataURL(documentUrl, (err, url) => {
+      if (err) {
+        console.error(err);
+        // Manejar el error si es necesario
+      } else {
+        // Insertar la imagen del código QR en el PDF
+        doc.image(url, 480, doc.y - 570, { width: 80, height: 80 });
+      }
+
+      // Finalizar el documento
+      doc.end();
+      // Enviar el documento como respuesta al cliente
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename=Documento_Entrega_${orderId}.pdf`);
+      doc.pipe(res);
+    });
   });
 };
