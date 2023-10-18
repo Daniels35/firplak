@@ -13,7 +13,7 @@ exports.previewDeliveryDocument = (req, res) => {
   }).then((response) => {
     // Configurar la cabecera para mostrar el PDF en el navegador
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename=Documento_Entrega_${orderId}.pdf`);
+    res.setHeader('Content-Disposition', `inline; filename=delivery_${orderId}.pdf`);
     response.data.pipe(res);
   }).catch((error) => {
     console.error(error);
