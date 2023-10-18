@@ -53,7 +53,6 @@ OrdersModel.createOrder = (newOrder, callback) => {
     });
 };
 
-
 // Obtener todos los pedidos
 OrdersModel.getAllOrders = (callback) => {
   db.query('SELECT * FROM orders', (err, orders) => {
