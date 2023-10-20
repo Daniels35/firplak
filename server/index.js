@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const port = 3001;
+const port = 3027;
 
 // Configurar la base de datos
 const db = require('./config/database');
 require('./config/cloudinary');
 
-const allowedOrigins = ['http://localhost:3000', 'http://another-example.com'];
+const allowedOrigins = ['http://localhost:3000', 'http://www.proyectologistica.online'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -19,7 +19,6 @@ app.use(cors({
   }
 }));
 
-// Middleware para el manejo de JSON en las solicitudes
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -34,6 +33,8 @@ app.use('/', require('./routes/inventories/inventoriesPto1'));
 app.use('/', require('./routes/inventories/inventoriesPto2'));
 app.use('/', require('./routes/inventories/inventories'));
 app.use('/', require('./routes/orders'));
+app.use('/', require('./routes/paymentMethods'));
+app.use('/', require('./routes/paymentStates'));
 
 app.listen(port, () => {
   console.log(`El servidor está corriendo en http://localhost:${port}`);

@@ -19,7 +19,7 @@ router.put('/orders/:id', ordersController.updateOrder);
 // Ruta para eliminar un pedido por su ID
 router.delete('/orders/:id', ordersController.deleteOrder);
 
-// Ruta para generar un documento de entrega
+// Ruta para generar un documento de entregs
 router.get('/orders/:id/delivery', ordersDeliveryController.generateDeliveryDocument);
 
 // Ruta para generar una vista previa del documento de entrega
