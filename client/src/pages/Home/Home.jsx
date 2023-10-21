@@ -1,56 +1,64 @@
 import React, { useState } from 'react';
 import { BsCaretDownFill, BsCaretUpFill } from 'react-icons/bs';
+import Modal from '../../components/Modal/Modal';
 import './Home.css';
+import CreateCategoria from '../../components/Add/CreateCategoria';
+import CreateColor from '../../components/Add/CreateColor';
+import CreateUser from '../../components/Add/CreateUser';
+import OrdersList from '../../components/See/OrdersList';
+import CreateProduct from '../../components/Add/CreateProduct';
+import CreatePaymentMethod from '../../components/Add/CreatePaymentMethod';
+import CreatePaymentState from '../../components/Add/CreatePaymentState';
+import Pto1 from '../../components/See/Pto1';
+import Pto2 from '../../components/See/Pto2';
+import CreateOrder from '../../components/Add/CreateOrder';
 
 function Home() {
   const [categoriasAbiertas, setCategoriasAbiertas] = useState(false);
   const [verAbierto, setVerAbierto] = useState(false);
   const [otrasAbiertas, setOtrasAbiertas] = useState(false);
+  const [isCategoriaModalVisible, setCategoriaModalVisible] = useState(false);
+  const [isCreateColorModalVisible, setCreateColorModalVisible] = useState(false);
+  const [isCreateUserModalVisible, setCreateUserModalVisible] = useState(false);
+  const [isOrdersListModalVisible, setOrdersListModalVisible] = useState(false);
+  const [isCreateProductModalVisible, setCreateProductModalVisible] = useState(false);
+  const [isCreatePaymentMethodModalVisible, setCreatePaymentMethodModalVisible] = useState(false);
+  const [isCreatePaymentStateModalVisible, setCreatePaymentStateModalVisible] = useState(false);
+  const [isPto1ModalVisible, setPto1ModalVisible] = useState(false);
+  const [isPto2ModalVisible, setPto2ModalVisible] = useState(false);
+  const [isCreateOrderModalVisible, setCreateOrderModalVisible] = useState(false);
 
   return (
     <div className="Home-contenedor">
       <div className="form-home-container">
-        <div className="viñeta">
-          <h1>Agregar</h1>
+        <div className='saludo-home'>
+          <h2>Hola soy Daniel Diaz 
+            <img src="https://res.cloudinary.com/dpnj2pchu/image/upload/v1695943375/giphy_kvkclb.webp" alt="saludo" />
+          </h2>
+        </div>
           <div className="descripcion">
-            En esta sección podrás agregar a la base de datos Categorías, Colores, Usuarios, Productos, Métodos de pago, Estado de pago, Inventarios en la bodega Pto1 y Pto2, se recomienda hacerlo con moderación puesto que esto es un proyecto. Haz clic en <BsCaretDownFill className='icon-viñeta-text'/> para abrir la lista completa..
+          Este es el Producto Mínimo Viable para el proyecto de <strong>Firplak</strong>. El frontend se realizó con React, y el backend, que es la parte más compleja, se desarrolló con MySQL 12.
+           </div>
+        <div className="viñeta">
+          <h1>Agregar / Ver</h1>
+          <div className="descripcion">
+            En esta sección podrás agregar y ver de la base de datos Categorías, Colores, Usuarios, Productos, Métodos de pago, Estado de pago, Inventarios en la bodega Pto1 y Pto2, Documentos de entrega, Guías maestras, se recomienda hacerlo con moderación puesto que esto es un proyecto. Haz clic en <BsCaretDownFill className='icon-viñeta-text'/> para abrir la lista completa..
           </div>
-          <button onClick={() => setCategoriasAbiertas(!categoriasAbiertas)}>
+          <p onClick={() => setCategoriasAbiertas(!categoriasAbiertas)}>
             {categoriasAbiertas ? <BsCaretUpFill className='icon-viñeta'/> : <BsCaretDownFill className='icon-viñeta'/>}
-          </button>
+          </p>
           {categoriasAbiertas && (
             <ul>
-              <li>Categorías</li>
-              <li>Colores</li>
-              <li>Usuarios</li>
-              <li>Productos</li>
-              <li>Métodos de Pago</li>
-              <li>Estado de Pago</li>
-              <li>Agregar inventario en bodega Pto1</li>
-              <li>Agregar inventario en bodega Pto2</li>
-            </ul>
-          )}
-        </div>
-        <div className="viñeta">
-          <h1>Ver</h1>
-          <div className="descripcion">
-            Aquí podrás ver toda la información que se tiene en la base de datos, Documentos de entrega, guías maestras, métodos de pago, categorías, colores, productos, inventarios en bodega Pto1 y Pto2, usuarios, estados de pago.
-          </div>
-          <button onClick={() => setVerAbierto(!verAbierto)}>
-            {verAbierto ? <BsCaretUpFill className='icon-viñeta'/> : <BsCaretDownFill className='icon-viñeta'/>}
-          </button>
-          {verAbierto && (
-            <ul>
-              <li>Documentos de entrega</li>
+              <li onClick={(e) => { e.stopPropagation(); setCategoriaModalVisible(true)}}>Categorías</li>
+              <li onClick={(e) => { e.stopPropagation(); setCreateColorModalVisible(true);}}>Colores</li>
+              <li onClick={(e) => { e.stopPropagation(); setCreateUserModalVisible(true);}}>Usuarios</li>
+              <li onClick={(e) => { e.stopPropagation(); setCreateProductModalVisible(true);}}>Productos</li>
+              <li onClick={(e) => { e.stopPropagation(); setCreatePaymentMethodModalVisible(true);}}>Métodos de Pago</li>
+              <li onClick={(e) => { e.stopPropagation(); setCreatePaymentStateModalVisible(true);}}>Estado de Pago</li>
+              <li onClick={(e) => { e.stopPropagation(); setPto1ModalVisible(true);}}>Agregar inventario en bodega Pto1</li>
+              <li onClick={(e) => { e.stopPropagation(); setPto2ModalVisible(true);}}>Agregar inventario en bodega Pto2</li>
+              <li onClick={(e) => { e.stopPropagation(); setOrdersListModalVisible(true);}}>Documentos de entrega</li>
               <li>Guías maestras</li>
-              <li>Métodos de pago</li>
-              <li>Categorías</li>
-              <li>Colores</li>
-              <li>Usuarios</li>
-              <li>Productos</li>
-              <li>Estado de Pago</li>
-              <li>Inventario en bodega Pto1</li>
-              <li>Inventario en bodega Pto2</li>
             </ul>
           )}
         </div>
@@ -59,17 +67,48 @@ function Home() {
           <div className="descripcion">
             Aquí podrás hacer pedidos de compra, enviar prueba POD y más.
           </div>
-          <button onClick={() => setOtrasAbiertas(!otrasAbiertas)}>
+          <p onClick={() => setOtrasAbiertas(!otrasAbiertas)}>
             {otrasAbiertas ? <BsCaretUpFill className='icon-viñeta'/> : <BsCaretDownFill className='icon-viñeta'/>}
-          </button>
+          </p>
           {otrasAbiertas && (
             <ul>
-              <li>Pedidos de compra</li>
+              <li onClick={(e) => { e.stopPropagation(); setCreateOrderModalVisible(true);}}>Pedidos de compra</li>
               <li>Enviar prueba POD</li>
             </ul>
           )}
         </div>
       </div>
+      {/* Modales */}
+      <Modal isVisible={isCategoriaModalVisible} onClose={() => setCategoriaModalVisible(false)}>
+        <CreateCategoria />
+      </Modal>
+      <Modal isVisible={isCreateColorModalVisible} onClose={() => setCreateColorModalVisible(false)}>
+        <CreateColor />
+      </Modal>   
+      <Modal isVisible={isCreateUserModalVisible} onClose={() => setCreateUserModalVisible(false)}>
+        <CreateUser />
+      </Modal>     
+      <Modal isVisible={isOrdersListModalVisible} onClose={() => setOrdersListModalVisible(false)}>
+        <OrdersList />
+      </Modal> 
+      <Modal isVisible={isCreateProductModalVisible} onClose={() => setCreateProductModalVisible(false)}>
+        <CreateProduct />
+      </Modal>
+      <Modal isVisible={isCreatePaymentMethodModalVisible} onClose={() => setCreatePaymentMethodModalVisible(false)}>
+        <CreatePaymentMethod />
+      </Modal>  
+      <Modal isVisible={isCreatePaymentStateModalVisible} onClose={() => setCreatePaymentStateModalVisible(false)}>
+        <CreatePaymentState />
+      </Modal>  
+      <Modal isVisible={isPto1ModalVisible} onClose={() => setPto1ModalVisible(false)}>
+        <Pto1 />
+      </Modal>  
+      <Modal isVisible={isPto2ModalVisible} onClose={() => setPto2ModalVisible(false)}>
+        <Pto2 />
+      </Modal> 
+      <Modal isVisible={isCreateOrderModalVisible} onClose={() => setCreateOrderModalVisible(false)}>
+        <CreateOrder />
+      </Modal> 
     </div>
   );
 }

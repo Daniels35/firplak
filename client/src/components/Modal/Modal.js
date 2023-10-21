@@ -1,6 +1,7 @@
 import React from 'react';
-
+import './Modal.css';
 const Modal = ({ children, isVisible, onClose }) => {
+
   const closeModal = () => {
     if (isVisible) {
       onClose();
@@ -14,46 +15,17 @@ const Modal = ({ children, isVisible, onClose }) => {
   return (
     <>
       <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 1000,
-        }}
+        className="modal-overlay"
         onClick={closeModal}
       >
         <div
-          style={{
-            position: 'relative',
-            backgroundColor: 'white',
-            padding: '50px',
-            borderRadius: '10px',
-            zIndex: 1001,
-            margin: '0 1.2rem 0 1.2rem',
-          }}
+          className="modal-content"
           onClick={(e) => e.stopPropagation()}
         >
           {children}
           <button
             onClick={onClose}
-            style={{
-              position: 'absolute',
-              top: '-15px',
-              right: '-5px',
-              backgroundColor: 'transparent',
-              border: 'none',
-              fontSize: '30px',
-              fontWeight: 'bold',
-              color: 'red',
-              cursor: 'pointer',
-              userSelect: 'none',
-            }}
+            className="close-button"
           >
             X
           </button>

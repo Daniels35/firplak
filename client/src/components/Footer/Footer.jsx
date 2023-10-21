@@ -39,8 +39,8 @@ const Footer = () => {
             <Link to="/" className="footer-link" onClick={scrollToTop}>
               Inicio
             </Link>
-            <Link to="/encuestas" className="footer-link" onClick={scrollToTop}>
-              Encuestas
+            <Link to="#" className="footer-link" onClick={scrollToTop}>
+              POD
             </Link>
             <a href="https://daniels35.com/" target="_blank" className="footer-link" onClick={scrollToTop}>
               Contacto

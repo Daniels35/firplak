@@ -13,8 +13,57 @@ code {
 }
 
 button {
+  background-color: #0693e3;
+  border-radius: 10px;
   border: none;
+  padding: 7px;
+  font-weight: 500;
+  color: white;
   outline: none;
   text-decoration: none;
   display: inline-block; 
+  transition: transform 0.5s;  
+  margin: 7px 7px 7px 7px;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+h1, h2, h3 {
+  color: #0693e3;
+  text-align: center;
+}
+
+input {
+  max-width: 220px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  border: 0.5px solid #0693e3;
+}
+
+input:focus {
+  border-color: #0693e3;
+}
+
+select {
+  max-width: 220px;
+  border-radius: 5px;
+  margin-top: 7px;
+  padding: 2px;
+  border: 0.5px solid #0693e3;
+  border-top: none;
+  color: gray;
+  border-left: none;
+  border-right: none;
+}
+
+select:hover {
+  cursor: pointer;
 }

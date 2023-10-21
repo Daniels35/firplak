@@ -1,0 +1,26 @@
+.detail-product-contain, .pto1-container {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.detail-product-contain il {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-product-contain {
+    text-align: justify;
+    line-height: 1.5;
+}
+
+.image-detail-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-detail-product img {
+    border-radius: 10px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}

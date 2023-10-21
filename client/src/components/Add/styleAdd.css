@@ -1,0 +1,11 @@
+.create-products-container, .categoria-container, .color-container, .user-container, .payment-method-container, .payment-state-container, .order-container {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
