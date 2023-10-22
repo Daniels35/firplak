@@ -72,7 +72,7 @@ function ProductDetails({ productId }) {
         <img
           src={product.image}
           alt={product.name}
-          style={{ maxWidth: '300px', maxHeight: '300px' }}
+          style={{ maxWidth: '200px', maxHeight: '200px' }}
         />
       </div>
     </div>

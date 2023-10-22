@@ -75,7 +75,6 @@ function CreateOrder() {
         alert(message);
       }
     } catch (error) {
-      alert(error.response.data.message);
       console.error('Error al crear la orden:', error);
     }
   };

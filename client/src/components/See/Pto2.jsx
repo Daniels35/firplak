@@ -17,7 +17,8 @@ function Pto2() {
   return (
     <div className="pto2-container">
       <h1>Registros de Inventario en Pto2</h1>
-      <ul>
+      {inventoryRecords.length > 0 ? (
+        <ul>
         {inventoryRecords.map((record) => (
           <li key={record.id}>
             <p>Producto:</p> {record.product_id}
@@ -28,6 +29,9 @@ function Pto2() {
           </li>
         ))}
       </ul>
+        ) : (
+          <p>No hay registros de inventario en Pto2.</p>
+        )}
     </div>
   );
 }
