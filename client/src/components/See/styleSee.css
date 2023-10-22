@@ -1,4 +1,4 @@
-.detail-product-contain, .pto1-container {
+.detail-product-contain, .pto1-container, .orders-contain {
     max-height: 70vh;
     overflow-y: auto;
 }

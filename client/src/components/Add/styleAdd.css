@@ -9,3 +9,27 @@ form {
     justify-content: center;
     align-items: center;
 }
+
+.products-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-products-showList, .container-products-showAll {
+    max-height: 20vh;
+    overflow-y: auto;
+    border-bottom: 0.5px solid #0693e3;
+    padding-bottom: 10px;
+}
+
+.input-phoneNumber {
+    position: relative;
+    left: -20px;
+    max-width: 170px;
+}
+
+.total-price {
+    text-align: center;
+}

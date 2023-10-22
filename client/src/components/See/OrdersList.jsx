@@ -33,7 +33,7 @@ function OrdersList() {
   };
 
   return (
-    <div>
+    <div className='orders-contain'>
       <h1>Órdenes</h1>
       <ul>
         {orders.map((order) => (

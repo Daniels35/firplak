@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
 import './styleAdd.css';
-import ProductsList from './ProductsList'; 
+import ProductsList from './ProductsList';
+import  PhoneInput  from  'react-phone-number-input'; 
+import  'react-phone-number-input/style.css';
 
 function CreateOrder() {
   const [clientName, setClientName] = useState('');
@@ -12,12 +14,27 @@ function CreateOrder() {
   const [price, setPrice] = useState(0);
   const [deliveryDate, setDeliveryDate] = useState('');
   const [dispatchDate, setDispatchDate] = useState('');
-  const [selectedProducts, setSelectedProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const [paymentMethods, setPaymentMethods] = useState([]);
   const [paymentStatuses, setPaymentStatuses] = useState([]);
   const [users, setUsers] = useState([]);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [clearSelectedProducts, setClearSelectedProducts] = useState(false);
 
+  const updatePrice = (newPrice) => {
+    setPrice(newPrice);
+  }
+
+  const handleSaveProducts = (selectedProducts) => {
+    const simplifiedProducts = selectedProducts.map(({ product, quantity }) => ({
+      id_product: product.id,
+      quantity: quantity,
+    }));
+    setProducts(simplifiedProducts);
+    console.log("Productos simplificados:", simplifiedProducts);
+  };
+  
   const handleCreateOrder = async (e) => {
     e.preventDefault();
 
@@ -25,21 +42,25 @@ function CreateOrder() {
       const newOrder = {
         client_name: clientName,
         delivery_address: deliveryAddress,
-        products: selectedProducts,
+        products: products,
         payment_method_id: paymentMethodId,
         payment_status_id: paymentStatusId,
         user_id: userId,
         price: price,
         delivery_date: deliveryDate,
         dispatch_date: dispatchDate,
+        phone_number: phoneNumber,
+        email: email,
       };
 
+      console.log('Nueva Orden:', newOrder);
+      
       const response = await api.post('/orders', newOrder);
       const { message, error, order } = response.data;
 
       if (message) {
         alert(message);
-        
+        setClearSelectedProducts(true);
         setClientName('');
         setDeliveryAddress('');
         setPaymentMethodId('');
@@ -48,11 +69,13 @@ function CreateOrder() {
         setPrice(0);
         setDeliveryDate('');
         setDispatchDate('');
-        setSelectedProducts([]);
+        setPhoneNumber('');
+        setEmail('');
       } else if (error) {
-        alert(error);
+        alert(message);
       }
     } catch (error) {
+      alert(error.response.data.message);
       console.error('Error al crear la orden:', error);
     }
   };
@@ -87,7 +110,6 @@ function CreateOrder() {
         console.error('Error al obtener usuarios:', error);
       }
     }
-
     fetchPaymentMethods();
     fetchPaymentStatuses();
     fetchUsers();
@@ -101,7 +123,18 @@ function CreateOrder() {
         <input type="text" value={clientName} onChange={(e) => setClientName(e.target.value)} />
         <label>Dirección de Entrega:</label>
         <input type="text" value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} />
-        <ProductsList selectedProducts={selectedProducts} setSelectedProducts={setSelectedProducts} setPrice={setPrice} />
+        <ProductsList clearSelectedProducts={clearSelectedProducts} setClearSelectedProducts={setClearSelectedProducts} setPrice={setPrice} updatePrice={updatePrice} handleSaveProducts={handleSaveProducts}/>
+        <label>Correo Electrónico:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <label>Número Contacto:</label>
+        <PhoneInput
+            international
+            maxLength={15}
+            defaultCountry="CO"
+            placeholder="Número de contacto"
+            value={phoneNumber}
+            onChange={(value) => setPhoneNumber(value)}
+            className='input-phoneNumber'/>
         <label>Método de Pago:</label>
         <select value={paymentMethodId} onChange={(e) => setPaymentMethodId(e.target.value)}>
           <option value="">Selecciona un método de pago</option>
@@ -130,7 +163,7 @@ function CreateOrder() {
           ))}
         </select>
         <label>Precio Total:</label>
-        <input type="text" value={price} readOnly />
+        <input type="text" value={price} readOnly className='total-price'/>
         {/* <button type="submit">Guardar Orden</button> */}
       </form>
     </div>
