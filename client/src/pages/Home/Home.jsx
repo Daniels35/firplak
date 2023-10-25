@@ -12,6 +12,7 @@ import CreatePaymentState from '../../components/Add/CreatePaymentState';
 import Pto1 from '../../components/See/Pto1';
 import Pto2 from '../../components/See/Pto2';
 import CreateOrder from '../../components/Add/CreateOrder';
+import CreateInventory from '../../components/Add/CreateInventory';
 
 function Home() {
   const [categoriasAbiertas, setCategoriasAbiertas] = useState(false);
@@ -27,6 +28,7 @@ function Home() {
   const [isPto1ModalVisible, setPto1ModalVisible] = useState(false);
   const [isPto2ModalVisible, setPto2ModalVisible] = useState(false);
   const [isCreateOrderModalVisible, setCreateOrderModalVisible] = useState(false);
+  const [isCreateInventoryModalVisible, setCreateInventoryModalVisible] = useState(false);
 
   return (
     <div className="Home-contenedor">
@@ -37,7 +39,7 @@ function Home() {
           </h2>
         </div>
           <div className="descripcion">
-          Este es el Producto Mínimo Viable para el proyecto de <strong>Firplak</strong>. El frontend se realizó con React, y el backend, que es la parte más compleja, se desarrolló con MySQL 12.
+          Este es el Producto Mínimo Viable para el proyecto de <strong>Firplak</strong>. El frontend se realizó con React, y el backend, que es la parte más compleja, se desarrolló con MySQL2.
            </div>
         <div className="viñeta">
           <h1>Agregar / Ver</h1>
@@ -108,6 +110,9 @@ function Home() {
       </Modal> 
       <Modal isVisible={isCreateOrderModalVisible} onClose={() => setCreateOrderModalVisible(false)}>
         <CreateOrder />
+      </Modal> 
+      <Modal isVisible={isCreateInventoryModalVisible} onClose={() => setCreateInventoryModalVisible(false)}>
+        <CreateInventory />
       </Modal> 
     </div>
   );

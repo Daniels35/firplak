@@ -31,7 +31,9 @@ exports.generateDeliveryDocument = (req, res) => {
           return res.status(500).json({ error: 'Error al obtener estado de pago', err });
         }
         console.log("Info de estado de pago: ", paymentStatus);
-        const products = JSON.parse(order.products);
+        console.log("PRODUCTOS: ", order.products);
+
+        const products = order.products;
         const productNames = [];
         // Crear una función para obtener el nombre de un producto
         function getProductNameAndPrice(productId, callback) {
@@ -93,7 +95,8 @@ exports.generateDeliveryDocument = (req, res) => {
             doc.moveDown();
             // Parsear la cadena JSON a un objeto JavaScript
             products.forEach((product, index) => {
-              doc.text(`- ${productNames[index]}, Cantidad: ${product.cantidad}, Precio: $${formatPriceWithCommas(productPrices[index])} COP c/u`);
+              doc.text(`- ${productNames[index]}, Cantidad: ${product.quantity}, Precio: $${formatPriceWithCommas(productPrices[index])} COP c/u`);
+              doc.moveDown(0.5);
             });
             doc.moveDown(3);
             const formattedPrice = formatPriceWithCommas(order.price);

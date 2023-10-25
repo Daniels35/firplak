@@ -1,4 +1,4 @@
-.detail-product-contain, .pto1-container, .orders-contain {
+.detail-product-contain, .pto1-container, .orders-contain, .pto2-container {
     max-height: 70vh;
     overflow-y: auto;
 }
@@ -23,4 +23,8 @@
     border-radius: 10px;
     margin-top: 12px;
     margin-bottom: 10px;
+}
+
+.button-movepto1 {
+    background-color: brown;
 }

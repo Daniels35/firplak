@@ -12,6 +12,7 @@ db.query(`
     orden_id VARCHAR(36),
     estado ENUM('pendiente', 'procesando', 'completada') NOT NULL,
     fecha_solicitud VARCHAR(255) NOT NULL,
+    date_estimated VARCHAR(36),
     user_id INT NOT NULL
   )
 `, (err) => {
@@ -53,7 +54,12 @@ InventoriesPto2Model.createInventory = (newInventory, callback) => {
   const currentDate = new Date();
   const options = { timeZone: 'America/Bogota' };
   const formattedDate = currentDate.toLocaleString('es-CO', options);
-  
+
+  currentDate.setDate(currentDate.getDate() + 7);
+  const dispatchDateFormatted = currentDate.toLocaleDateString('es-CO', options);
+
+  newInventory.date_estimated = dispatchDateFormatted;
+
   newInventory.fecha_solicitud = formattedDate;
   
   db.query('INSERT INTO pto2 SET ?', newInventory, (err, result) => {

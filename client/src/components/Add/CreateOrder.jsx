@@ -38,6 +38,20 @@ function CreateOrder() {
   const handleCreateOrder = async (e) => {
     e.preventDefault();
 
+  if (
+    !clientName ||
+    !deliveryAddress ||
+    !paymentMethodId ||
+    !paymentStatusId ||
+    !userId ||
+    !price ||
+    !phoneNumber ||
+    !email
+  ) {
+    alert('Por favor, completa todos los campos obligatorios.');
+    return;
+  }
+
     try {
       const newOrder = {
         client_name: clientName,
@@ -72,7 +86,7 @@ function CreateOrder() {
         setPhoneNumber('');
         setEmail('');
       } else if (error) {
-        alert(message);
+        console.log(error);
       }
     } catch (error) {
       console.error('Error al crear la orden:', error);
@@ -163,7 +177,7 @@ function CreateOrder() {
         </select>
         <label>Precio Total:</label>
         <input type="text" value={price} readOnly className='total-price'/>
-        {/* <button type="submit">Guardar Orden</button> */}
+        <button type="submit">Guardar Orden</button>
       </form>
     </div>
   );

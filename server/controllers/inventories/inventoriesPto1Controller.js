@@ -12,10 +12,10 @@ exports.getAllInventoriesPto1 = (req, res) => {
   });
 };
 
-// Obtener un registro de inventario Pto1 por su ID
+// Obtener un registro de inventario Pto1 por su ID (product_id)
 exports.getInventoryPto1ById = (req, res) => {
-  const id = req.params.id;
-  InventoriesPto1Model.getInventoryById(id, (err, inventory) => {
+  const product_id = req.params.id;
+  InventoriesPto1Model.getInventoryById(product_id, (err, inventory) => {
     if (err) {
       return res.status(500).json({ error: 'Error al obtener el registro de inventario Pto1' });
     }
@@ -27,15 +27,15 @@ exports.getInventoryPto1ById = (req, res) => {
 exports.createInventoryPto1 = (req, res) => {
   const newInventory = req.body;
 
-  if (!newInventory.product_id || !newInventory.cantidad || !newInventory.orden_id || !newInventory.transfer_date) {
+  if (!newInventory.product_id || !newInventory.cantidad || !newInventory.orden_id ) {
     return res.status(400).json({ error: 'Los campos product_id, cantidad, orden_id y transfer_date son obligatorios' });
   }
 
   InventoriesPto1Model.createInventory(newInventory, (err, inventory) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al crear el registro de inventario Pto1' });
+      return res.status(500).json({ error: 'Error al crear el registro de inventario Pto1', err });
     }
-    res.json({ message: 'Registro de inventario Pto1 agregado con éxito', inventory });
+    res.json({ message: 'Registro de inventario PTO2 movido a PTO1 con éxito' });
   });
 };
 
@@ -52,12 +52,12 @@ exports.updateInventoryPto1 = (req, res) => {
   });
 };
 
-// Eliminar un registro de inventario Pto1 por su ID
+// Eliminar un registro de inventario Pto1 por su ID (product_id)
 exports.deleteInventoryPto1 = (req, res) => {
-  const id = req.params.id;
-  InventoriesPto1Model.deleteInventory(id, (err, result) => {
+  const product_id = req.params.id;
+  InventoriesPto1Model.deleteInventory(product_id, (err, result) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al eliminar el registro de inventario Pto1' });
+      return res.status(500).json({ error: 'Error al eliminar el registro de inventario Pto1', err });
     }
     res.json({ message: 'Registro de inventario Pto1 eliminado con éxito', result });
   });

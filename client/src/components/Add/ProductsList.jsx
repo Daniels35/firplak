@@ -7,7 +7,22 @@ function ProductsList({ updatePrice, handleSaveProducts, clearSelectedProducts, 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showAllProducts, setShowAllProducts] = useState(false);
+  const [pto1Inventories, setPto1Inventories] = useState([]);
 
+  useEffect(() => {
+    async function fetchPto1Inventories() {
+      try {
+        const response = await api.get('/inventories-pto1');
+        const pto1InventoriesData = response.data;
+        setPto1Inventories(pto1InventoriesData);
+      } catch (error) {
+        console.error('Error al obtener las existencias en Pto1:', error);
+      }
+    }
+  
+    fetchPto1Inventories();
+  }, []);
+  
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -30,16 +45,22 @@ function ProductsList({ updatePrice, handleSaveProducts, clearSelectedProducts, 
   const handleProductSelect = (product) => {
     const productIndex = selectedProducts.findIndex((p) => p.product.id === product.id);
     const newSelectedProducts = [...selectedProducts];
-
+  
+    const hasInventoryInPto1 = getPto1InventoryCount(product.id) > 0;
+  
     if (productIndex === -1) {
-      newSelectedProducts.push({ product, quantity: 1 });
+      if (hasInventoryInPto1) {
+        newSelectedProducts.push({ product, quantity: 1 });
+        setSelectedProducts(newSelectedProducts);
+      } else {
+        alert('Este producto no tiene existencias en la bodega Pto1. Genere la solicitud a la bodega Pto2.');
+      }
     } else {
       newSelectedProducts.splice(productIndex, 1);
+      setSelectedProducts(newSelectedProducts);
     }
-
-    setSelectedProducts(newSelectedProducts);
   };
-
+  
   const handleQuantityChange = (productId, newQuantity) => {
     const productIndex = selectedProducts.findIndex((p) => p.product.id === productId);
     const newSelectedProducts = [...selectedProducts];
@@ -79,8 +100,12 @@ function ProductsList({ updatePrice, handleSaveProducts, clearSelectedProducts, 
       setClearSelectedProducts(false);
     }
   }, [clearSelectedProducts]);
-  
 
+  const getPto1InventoryCount = (productId) => {
+    const inventory = pto1Inventories.find((inv) => inv.product_id === productId);
+    return inventory ? inventory.cantidad : 0;
+  };
+  
   return (
     <div className="products-list-container">
       <h1>Lista de Productos</h1>
@@ -116,6 +141,7 @@ function ProductsList({ updatePrice, handleSaveProducts, clearSelectedProducts, 
       {showFilteredProducts && (
         <>
           <h4>Productos Base de datos</h4>
+          <span className='inventory-productList-pto1'>▝ Productos en Bodega Pto1</span>
             <ul className='container-products-showAll'>
               {filteredProducts
                 .filter((product) => !selectedProducts.some((p) => p.product.id === product.id))
@@ -127,6 +153,9 @@ function ProductsList({ updatePrice, handleSaveProducts, clearSelectedProducts, 
                       onChange={(e) => { e.stopPropagation(); e.preventDefault(); handleProductSelect(product)}}
                     />
                     {product.name} - Precio: {product.price} c/u
+                      <span className={`inventory-productList-pto1 ${getPto1InventoryCount(product.id) === 0 ? 'red-text' : ''}`}>
+                      ▝ {getPto1InventoryCount(product.id)}
+                    </span>
                   </li>
                 ))}
             </ul>

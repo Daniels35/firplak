@@ -39,7 +39,7 @@ function OrdersList() {
             <br />
             Nombre del Cliente: {order.client_name}
             <br />
-            <button onClick={() => generateDeliveryPreview(order.id)}>Ver Orden de Entrega</button>
+            <button onClick={(e) => {e.stopPropagation(); e.preventDefault(); generateDeliveryPreview(order.id)}}>Ver Orden de Entrega</button>
           </li>
         ))}
       </ul>

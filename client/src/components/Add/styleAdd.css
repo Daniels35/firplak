@@ -1,4 +1,4 @@
-.create-products-container, .categoria-container, .color-container, .user-container, .payment-method-container, .payment-state-container, .order-container {
+.create-products-container, .categoria-container, .color-container, .user-container, .payment-method-container, .payment-state-container, .order-container, .select-product-container {
     max-height: 70vh;
     overflow-y: auto;
 }
@@ -10,7 +10,7 @@ form {
     align-items: center;
 }
 
-.products-list-container {
+.products-list-container, .select-product-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,4 +32,22 @@ form {
 
 .total-price {
     text-align: center;
+}
+
+.container-cantidad {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.selectProducto-inputQuantity {
+    text-align: center;
+    max-width: 60px;
+}
+
+.inventory-productList-pto1 {
+    color: green;
+}
+
+.red-text {
+    color: brown;
 }

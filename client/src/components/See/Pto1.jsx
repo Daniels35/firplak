@@ -17,14 +17,14 @@ function Pto1() {
 
   return (
     <div className="pto1-container">
-      <h1>Registros de Inventario en Pto1</h1>
+      <h1>Inventario Pto1</h1>
       {inventoryRecords.length > 0 ? (
         <ul>
           {inventoryRecords.map((record) => (
             <li key={record.id}>
-              <p>Producto:</p> {record.product_id}
-              <p>Cantidad:</p> {record.cantidad}
-              <p>Fecha de Transferencia:</p> {record.transfer_date}
+              Producto: {record.product_id},
+              Cantidad: {record.cantidad},
+              Fecha de Transferencia: {record.transfer_date}
             </li>
           ))}
         </ul>
