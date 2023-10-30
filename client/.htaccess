@@ -6,7 +6,7 @@
     RewriteRule ^app(/.*)?$ /index.html [L]
 
     # Rutas específicas que no serán manejadas por React
-    RewriteRule ^(categorias|colors|orders|payment-methods|payment-states|products|users|inventories-pto1|inventories-pto2|logs|inventories)(/.*)?$ - [L]
+    RewriteRule ^(categorias|colors|orders|payment-methods|payment-states|products|users|inventories-pto1|inventories-pto2|logs|inventories|pods)(/.*)?$ - [L]
 
     # Rutas que no comienzan con /app o las rutas específicas serán manejadas por React
     RewriteCond %{REQUEST_FILENAME} !-f

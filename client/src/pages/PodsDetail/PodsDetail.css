@@ -1,0 +1,48 @@
+.PodsDetail-container {
+  min-height: 600px;
+  margin-top: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.PodsDetail-container-inf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(101, 101, 101);
+
+}
+
+.PodsDetail-item {
+  font-weight: 400;
+}
+
+.item-observations {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.imagenPreview {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 10px;
+}
+
+.image-container-pods {
+  display: flex;
+}
+
+.button-close-pods {
+  color: brown;
+  font-weight: bold;
+  position: relative;
+  left: -20px;
+  font-size: 20px;
+  top: -10px;
+}
+
+.button-close-pods:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}

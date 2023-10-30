@@ -56,7 +56,7 @@ exports.generateDeliveryDocument = (req, res) => {
                 return res.status(500).json({ error: 'Error al obtener el nombre y precio del producto', err });
               }
               productNames.push(name);
-              productPrices.push(price); // Aquí guardamos el precio en un arreglo
+              productPrices.push(price);
               productIndex++;
               processProduct();
             });
@@ -100,7 +100,7 @@ exports.generateDeliveryDocument = (req, res) => {
             });
             doc.moveDown(3);
             const formattedPrice = formatPriceWithCommas(order.price);
-            doc.text('', { continued: true }); // Espacio para mover el texto a la derecha
+            doc.text('', { continued: true });
             doc.text(`Total: $${formattedPrice} COP`, { align: 'right' });
             // Agregar una línea en blanco para la firma
             doc.moveDown(3);
@@ -109,12 +109,11 @@ exports.generateDeliveryDocument = (req, res) => {
             doc.text('Firma Cliente');
             // Generar un enlace o URL que apunte al documento o a una página de edición 
             // (CAMBIARLO PARA QUE ENVÍE AL REPARTIDOR A LA ENTREGA (POD))
-            const documentUrl = `${process.env.BASE_URL}/orders/${orderId}/delivery/preview`;
+            const documentUrl = `${process.env.BASE_URL}/pod/${orderId}`;
             // Generar el código QR
             QRCode.toDataURL(documentUrl, (err, url) => {
               if (err) {
                 console.error(err);
-                // Manejar el error si es necesario
               } else {
                 // Insertar la imagen del código QR en el PDF
                 doc.image(url, 480, doc.y - 570, { width: 80, height: 80 });

@@ -39,7 +39,7 @@ const Footer = () => {
             <Link to="/" className="footer-link" onClick={scrollToTop}>
               Inicio
             </Link>
-            <Link to="#" className="footer-link" onClick={scrollToTop}>
+            <Link to="/pod" className="footer-link" onClick={scrollToTop}>
               POD
             </Link>
             <a href="https://daniels35.com/" target="_blank" className="footer-link" onClick={scrollToTop}>

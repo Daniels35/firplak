@@ -18,14 +18,24 @@ router.post('/products', upload.single('image'), (req, res) => {
     if (!newProduct.name || !newProduct.description || !newProduct.price || !newProduct.category_id || !newProduct.color_id) {
       return res.status(400).json({ error: 'Nombre, descripción, precio, categoria y color son requeridos' });
     }
+  
     if (req.file) {
+      // Si se subió una imagen, sube la imagen a Cloudinary
       cloudinary.uploader.upload(req.file.path, (error, result) => {
-        fs.unlinkSync(req.file.path);
+        
+        // Borra el archivo local después de la subida a Cloudinary
+        fs.unlinkSync(req.file.path); // Elimina el archivo del sistema de archivos local
         if (error) {
           return res.status(500).json({ error: 'Error al subir la imagen a Cloudinary', error });
         }
+  
+        // `result.url` contiene el enlace de la imagen en Cloudinary
         const imageUrl = result.url;
+  
+        // Asigna la URL de la imagen al campo "image" del nuevo producto
         newProduct.image = imageUrl;
+  
+        // Crea el producto en la base de datos
         productsController.createProductWithImage(newProduct, (err, product) => {
           if (err) {
             return res.status(500).json({ error: 'Error al crear el producto', err });
@@ -34,6 +44,7 @@ router.post('/products', upload.single('image'), (req, res) => {
         });
       });
     } else {
+      // Si no se subió una imagen, crea el producto en la base de datos sin la URL de la imagen
       productsController.createProductWithImage(newProduct, (err, product) => {
         if (err) {
           return res.status(500).json({ error: 'Error al crear el producto', err });

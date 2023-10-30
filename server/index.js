@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const port = 3027;
 
+
 // Configurar la base de datos
 const db = require('./config/database');
 require('./config/cloudinary');
@@ -36,6 +37,7 @@ app.use('/', require('./routes/orders'));
 app.use('/', require('./routes/paymentMethods'));
 app.use('/', require('./routes/paymentStates'));
 app.use('/', require('./routes/logAction'));
+app.use('/', require('./routes/pod'));
 
 app.listen(port, () => {
   console.log(`El servidor está corriendo en http://localhost:${port}`);

@@ -1,4 +1,4 @@
-.detail-product-contain, .pto1-container, .orders-contain, .pto2-container {
+.detail-product-contain, .pto1-container, .orders-contain, .pto2-container, .pod-details-component {
     max-height: 70vh;
     overflow-y: auto;
 }
@@ -27,4 +27,9 @@
 
 .button-movepto1 {
     background-color: brown;
+}
+
+.image-podDetails {
+    max-width: 200px;
+    max-height: 200px;
 }

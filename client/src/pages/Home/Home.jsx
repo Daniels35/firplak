@@ -13,6 +13,7 @@ import Pto1 from '../../components/See/Pto1';
 import Pto2 from '../../components/See/Pto2';
 import CreateOrder from '../../components/Add/CreateOrder';
 import CreateInventory from '../../components/Add/CreateInventory';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [categoriasAbiertas, setCategoriasAbiertas] = useState(false);
@@ -75,7 +76,9 @@ function Home() {
           {otrasAbiertas && (
             <ul>
               <li onClick={(e) => { e.stopPropagation(); setCreateOrderModalVisible(true);}}>Pedidos de compra</li>
-              <li>Enviar prueba POD</li>
+              <li>
+                <Link to="/pod">Pruebas POD</Link>
+              </li>
             </ul>
           )}
         </div>
