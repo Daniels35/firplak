@@ -22,7 +22,7 @@ router.post('/pods', upload.fields([{ name: 'image' }, { name: 'test_image' }]),
     }
 
     if (exists) {
-      return res.status(400).json({ error: 'Ya se ha ingresado el POD de esta orden de entrega, por favor comuníquese con el administrador' });
+      return res.json({ message: 'Ya se ha ingresado el POD de esta orden de entrega, por favor comuníquese con el administrador' });
     }
   
     if (req.files) {
