@@ -12,6 +12,7 @@ function Pod() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     api.get('/pods')
       .then((response) => {
         setPods(response.data);
@@ -30,7 +31,11 @@ function Pod() {
 
   return (
     <div className="Pod-contenedor">
-      <h2>Pods Generadas</h2>
+      <div className='info-container-pod'>
+        <h2>POD</h2>
+        <p>Aquí podrás encontrar las POD (Pruebas de Entrega) de las órdenes de entrega. Para ingresar las POD, ve a la página de inicio y haz clic en <strong>"Documentos de Entrega"</strong>. Luego, selecciona la opción <strong>"Ver Orden de Entrega"</strong>, escanea el código <strong>QR</strong> con tu celular e ingresa la POD. Este código de QR es único para cada Documento de Entrega.</p>
+      </div>
+      <h3>Pods Generadas</h3>
       {isLoading ? (
         <p>Cargando datos...</p>
       ) : (
