@@ -22,6 +22,15 @@ function CreateUser() {
 
   const handleCreateUser = async (e) => {
     e.preventDefault();
+
+    if (
+      !userName ||
+      !userEmail ||
+      !userRole
+    ) {
+      alert('Por favor, completa todos los campos obligatorios.');
+      return;
+    }
   
     try {
       const response = await api.post('/users', {

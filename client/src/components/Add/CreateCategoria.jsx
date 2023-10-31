@@ -12,6 +12,11 @@ function CreateCategoria() {
 
   const handleCreateCategoria = async (e) => {
     e.preventDefault();
+
+    if (!categoriaName.trim()) {
+      alert('El campo de categoría no puede estar vacío.');
+      return;
+    }
   
     try {
       const response = await api.post('/categorias', { name: categoriaName });

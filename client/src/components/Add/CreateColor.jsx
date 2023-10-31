@@ -22,6 +22,11 @@ function CreateColor() {
 
   const handleCreateColor = async (e) => {
     e.preventDefault();
+
+    if (!colorName1.trim() || !colorCode.trim()) {
+      alert('El campo Nombre 1 y Código del color no puede estar vacío.');
+      return;
+    }
   
     try {
       const response = await api.post('/colors', { name1: colorName1, name2: colorName2, code: colorCode });

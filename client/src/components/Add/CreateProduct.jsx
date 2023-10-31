@@ -45,6 +45,18 @@ function CreateProduct() {
   const handleCreateProduct = async (e) => {
     e.preventDefault();
 
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category_id ||
+      !color_id ||
+      !image
+    ) {
+      alert('Por favor, completa todos los campos obligatorios.');
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('name', name);

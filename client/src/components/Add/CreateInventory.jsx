@@ -28,6 +28,22 @@ function CreateInventory({onInventoryAdded}) {
   const handleCreateInventory = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (cantidad === "0") {
+      alert('La cantidad debe ser mayor a 0.');
+      return;
+    }
+
+    if (usuarioId.length === 0) {
+      alert('Debes seleccionar un usuario.');
+      return;
+    }
+
+        if (!product_id.trim() || !cantidad || !estado.trim() || !usuarioId) {
+      alert('Los campos Producto, cantidad, estado y usuario no pueden estar vacío.');
+      return;
+    }
+
     try {
       const newInventory = {
         product_id,

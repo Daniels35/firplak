@@ -13,6 +13,11 @@ function CreatePaymentState() {
   const handleCreatePaymentState = async (e) => {
     e.preventDefault();
 
+    if (!paymentStateName.trim()) {
+      alert('Debes ingresar un estado de pago.')
+      return;
+    }
+
     try {
       const response = await api.post('/payment-states', { name_state: paymentStateName });
       const { message, error, paymentState } = response.data;

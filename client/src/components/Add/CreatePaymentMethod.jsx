@@ -13,6 +13,11 @@ function CreatePaymentMethod() {
   const handleCreatePaymentMethod = async (e) => {
     e.preventDefault();
 
+    if (!paymentMethodName.trim()) {
+      alert('Debes ingresar un metodo de pago.')
+      return;
+    }
+
     try {
       const response = await api.post('/payment-methods', { name_payment: paymentMethodName });
       const { message, error, paymentMethod } = response.data;
