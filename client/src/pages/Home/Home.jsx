@@ -40,12 +40,14 @@ function Home() {
           </h2>
         </div>
           <div className="descripcion">
-          Este es el Producto Mínimo Viable para el proyecto de <strong>Firplak</strong>. El frontend se realizó con React, y el backend, que es la parte más compleja, se desarrolló con MySQL2.
+            Este es el Producto Mínimo Viable para el proyecto de <strong>Firplak</strong>. El frontend se realizó con React, y el backend, que es la parte más compleja ya que está muy estructurada, contiene controladores, modelos, rutas, conexiones con Cloudinary, base de datos y nodemailer, se desarrolló con MySQL2.
+            <br />
+            Dando clic <a href="https://drive.google.com/file/d/1UqntqvUi8OSBWASmecBzF1ykWaAVkp5o/view?usp=sharing" target='_blank'>aquí</a> podrá ver el reto en PDF y el repositorio para ver el código en GitHub dando clic <a href="https://github.com/Daniels35/firplak" target='_blank'>aquí</a>.
            </div>
         <div className="viñeta">
           <h1>Agregar / Ver</h1>
           <div className="descripcion">
-            En esta sección podrás agregar y ver de la base de datos Categorías, Colores, Usuarios, Productos, Métodos de pago, Estado de pago, Inventarios en la bodega Pto1 y Pto2, Documentos de entrega, Guías maestras, se recomienda hacerlo con moderación puesto que esto es un proyecto. Haz clic en <BsCaretDownFill className='icon-viñeta-text'/> para abrir la lista completa..
+            En esta sección podrás agregar y ver de la base de datos Categorías, Colores, Usuarios, Productos, Métodos de pago, Estado de pago, Inventarios en la bodega Pto1 y Pto2, Documentos de entrega, Guías maestras, se recomienda hacerlo con moderación puesto que esto es un proyecto. Haz clic en <BsCaretDownFill className='icon-viñeta-text'/> para abrir la lista completa.
           </div>
           <p onClick={() => setCategoriasAbiertas(!categoriasAbiertas)}>
             {categoriasAbiertas ? <BsCaretUpFill className='icon-viñeta'/> : <BsCaretDownFill className='icon-viñeta'/>}
