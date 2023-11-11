@@ -5,8 +5,6 @@ const InventoriesPto1Controller = require('../inventories/inventoriesPto1Control
 exports.moveProductsToPto1 = (req, res) => {
   const id = req.params.id; // Obtiene el ID de los parámetros de la solicitud
 
-  console.log("ID QUE VIENE: ", id);
-  
   // Iniciar una transacción para garantizar la consistencia de la base de datos
   db.beginTransaction((err) => {
     if (err) {
@@ -22,8 +20,6 @@ exports.moveProductsToPto1 = (req, res) => {
         return;
       }
 
-      console.log("Resultados que obtiene: ", results);
-
       if (results.length === 0) {
         db.rollback(() => {
           res.status(404).json({ error: 'No se encontraron datos en pto2 para el ID proporcionado' });
@@ -31,8 +27,6 @@ exports.moveProductsToPto1 = (req, res) => {
         return;
       }
       const productData = results[0];
-      console.log("ESTADO DE LA TRAIDA: ", productData.estado);
-      
       // Verifica si el estado es "completado" antes de realizar la inserción en Pto1
       if (productData.estado === 'completada') {
         // Llama al controlador para crear un inventario en Pto1

@@ -9,8 +9,6 @@ const fs = require('fs');
 router.post('/pods', upload.fields([{ name: 'image' }, { name: 'test_image' }]), (req, res) => {
     const newPod = req.body;
   
-    console.log("DATOS POD Controller: ", newPod.orders_document_id);
-  
     if (!newPod.orders_document_id || !newPod.state) {
       return res.status(400).json({ error: 'Delivery document ID and state are required' });
     }

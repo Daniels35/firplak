@@ -50,8 +50,6 @@ InventoriesPto1Model.createInventory = (newInventory, callback) => {
       return callback(err, null);
     }
 
-    console.log("DATOS EN CREAR INVENTARIO PTO1: ", existingInventory);
-
     if (existingInventory.length > 0) {
       // Actualizar el registro existente
       const updatedInventory = existingInventory[0];

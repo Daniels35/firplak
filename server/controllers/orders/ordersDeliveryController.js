@@ -18,21 +18,16 @@ exports.generateDeliveryDocument = (req, res) => {
     if (err) {
       return res.status(500).json({ error: 'Error al obtener la orden', err });
     }
-    console.log("Datos de la traida: ", order);
     const payment_method_id = order.payment_method_id;
     PaymentMethodsModel.getPaymentMethodById(payment_method_id, (err, paymentMethod) => {
       if (err) {
         return res.status(500).json({ error: 'Error al obtener método de pago', err });
       }
       const payment_status_id = order.payment_status_id;
-      console.log("Info AAAAA: ", payment_status_id);
       PaymentStatesModel.getPaymentStateById(payment_status_id, (err, paymentStatus) => {
         if (err) {
           return res.status(500).json({ error: 'Error al obtener estado de pago', err });
         }
-        console.log("Info de estado de pago: ", paymentStatus);
-        console.log("PRODUCTOS: ", order.products);
-
         const products = order.products;
         const productNames = [];
         // Crear una función para obtener el nombre de un producto
@@ -65,7 +60,6 @@ exports.generateDeliveryDocument = (req, res) => {
             const doc = new PDFDocument();
             doc.rect(10, 10, 590, 750).stroke();
             doc.moveDown(-4);
-            console.log(__dirname + '/logolarge.png');
             doc.image(__dirname + '/logolarge.png', { width: 200, height: 150 });
             // Generar el contenido del documento PDF usando la información de la orden
             doc.text('Documento de Entrega');

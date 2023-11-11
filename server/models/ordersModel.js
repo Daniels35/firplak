@@ -28,7 +28,6 @@ db.query(`
 });
 
 OrdersModel.createOrder = (newOrder, callback) => {
-    console.log("Datos en model: ", newOrder);
     const currentDate = new Date();
     const options = { timeZone: 'America/Bogota' };
 
