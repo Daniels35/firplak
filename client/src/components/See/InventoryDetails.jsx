@@ -13,12 +13,10 @@ function InventoryDetails({ inventoryData, onUpdate, closeModalInventory }) {
     api.put(`/inventories-pto2/${inventoryData.id}`, { estado: updatedStatus })
       .then((response) => {
         const { message, inventory, error } = response.data;
-        console.log("WWWWW", inventory.estado);
         if (message) {
           alert(message);
           onUpdate();
           setUpdatedStatus(inventory.estado);
-          console.log("OOOO: ", updatedStatus);
         } else if (error) {
           alert('Error al actualizar el estado del inventario');
         }

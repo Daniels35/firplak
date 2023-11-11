@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
 import './styleAdd.css';
+import Loading from '../Loading/Loading';
 
 function CreateUser() {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userRole, setUserRole] = useState('vendedor');
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -57,9 +59,11 @@ function CreateUser() {
   useEffect(() => {
     async function fetchUsers() {
       try {
+        setIsLoading(true);
         const response = await api.get('/users');
         const usersData = response.data;
         setUsers(usersData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener los usuarios:', error);
       }
@@ -103,6 +107,7 @@ function CreateUser() {
             </ul>
           </div>
         )}
+        <Loading isLoading={isLoading} />
       </div>
     </div>
   );

@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
 import './styleSee.css';
+import Loading from '../Loading/Loading';
 
 function Pto1() {
   const [inventoryRecords, setInventoryRecords] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     api.get('/inventories-pto1')
       .then((response) => {
         setInventoryRecords(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error al obtener registros de inventario en Pto1:', error);
@@ -31,6 +35,7 @@ function Pto1() {
       ) : (
         <p>No hay registros de inventario en Pto1.</p>
       )}
+        <Loading isLoading={isLoading} />
     </div>
   );
 }

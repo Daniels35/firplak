@@ -3,19 +3,23 @@ import api from '../../config/api';
 import CreateInventory from '../Add/CreateInventory';
 import Modal from '../Modal/Modal';
 import InventoryDetails from './InventoryDetails';
+import Loading from '../Loading/Loading';
 
 function Pto2() {
   const [inventoryRecords, setInventoryRecords] = useState([]);
   const [isInventoryDetailsModalVisible, setInventoryDetailsModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchInventoryRecords()
   }, []);
 
   function fetchInventoryRecords() {
+    setIsLoading(true);
     api.get('/inventories-pto2')
       .then((response) => {
         setInventoryRecords(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error('Error al obtener registros de inventario en Pto2:', error);
@@ -36,15 +40,14 @@ function Pto2() {
             {inventoryRecords.map((record) => (
               <li key={record.id}>
                 Producto ID: {record.product_id}, Cantidad: {record.cantidad}, Estado: {record.estado}
-                <button onClick={(e) => { e.stopPropagation(); setInventoryDetailsModalVisible(record); console.log("Datos boton: ", record); }}>Ver Detalles</button>
-
+                <button onClick={(e) => { e.stopPropagation(); setInventoryDetailsModalVisible(record); }}>Ver Detalles</button>
               </li>
             ))}
           </ul>
         </div>
       ) : (
-        <p>No hay registros de inventario en Pto2.</p>
-      )}
+        <Loading isLoading={isLoading} />
+        )}
       <Modal isVisible={isInventoryDetailsModalVisible} onClose={() => setInventoryDetailsModalVisible(false)}>
         <InventoryDetails inventoryData={isInventoryDetailsModalVisible} onUpdate={fetchInventoryRecords} closeModalInventory={closeModalInventory}/>
       </Modal> 

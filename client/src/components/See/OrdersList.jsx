@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
+import Loading from '../Loading/Loading';
 
 function OrdersList() {
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchOrders() {
       try {
+        setIsLoading(true);
         const response = await api.get('/orders');
         const ordersData = response.data;
         setOrders(ordersData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener las órdenes:', error);
       }
@@ -32,6 +36,11 @@ function OrdersList() {
   return (
     <div className='orders-contain'>
       <h1>Órdenes</h1>
+      <div className='info-container-order-list'>
+       <p>El código <strong>QR</strong> y la <strong>información</strong> que se genera en cada orden de entrega son únicos.</p>
+      </div>
+      <div>
+      <Loading isLoading={isLoading} />
       <ul>
         {orders.map((order) => (
           <li key={order.id}>
@@ -43,6 +52,7 @@ function OrdersList() {
           </li>
         ))}
       </ul>
+        </div>
     </div>
   );
 }

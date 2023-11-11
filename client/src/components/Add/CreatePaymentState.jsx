@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
+import Loading from '../Loading/Loading';
 import './styleAdd.css';
 
 function CreatePaymentState() {
   const [paymentStateName, setPaymentStateName] = useState('');
   const [paymentStates, setPaymentStates] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePaymentStateNameChange = (e) => {
     setPaymentStateName(e.target.value);
@@ -37,9 +39,11 @@ function CreatePaymentState() {
   useEffect(() => {
     async function fetchPaymentStates() {
       try {
+        setIsLoading(true);
         const response = await api.get('/payment-states');
         const paymentStatesData = response.data;
         setPaymentStates(paymentStatesData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener los estados de pago:', error);
       }
@@ -71,6 +75,7 @@ function CreatePaymentState() {
             </ul>
           </div>
         )}
+        <Loading isLoading={isLoading} />
       </div>
     </div>
   );

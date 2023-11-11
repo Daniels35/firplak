@@ -13,6 +13,7 @@ import Pto1 from '../../components/See/Pto1';
 import Pto2 from '../../components/See/Pto2';
 import CreateOrder from '../../components/Add/CreateOrder';
 import CreateInventory from '../../components/Add/CreateInventory';
+import Logs from '../../components/See/Logs'; 
 import { Link } from 'react-router-dom';
 
 function Home() {
@@ -30,6 +31,8 @@ function Home() {
   const [isPto2ModalVisible, setPto2ModalVisible] = useState(false);
   const [isCreateOrderModalVisible, setCreateOrderModalVisible] = useState(false);
   const [isCreateInventoryModalVisible, setCreateInventoryModalVisible] = useState(false);
+  const [isLogsModalVisible, setLogsModalVisible] = useState(false);
+  
 
   return (
     <div className="Home-contenedor">
@@ -79,8 +82,9 @@ function Home() {
             <ul>
               <li onClick={(e) => { e.stopPropagation(); setCreateOrderModalVisible(true);}}>Pedidos de compra</li>
               <li>
-                <Link to="/pod">Pruebas POD</Link>
+                <Link to="/pod" className='link-css'>Pruebas POD</Link>
               </li>
+              <li onClick={(e) => { e.stopPropagation(); setLogsModalVisible(true);}}>Auditoría</li>
             </ul>
           )}
         </div>
@@ -118,6 +122,9 @@ function Home() {
       </Modal> 
       <Modal isVisible={isCreateInventoryModalVisible} onClose={() => setCreateInventoryModalVisible(false)}>
         <CreateInventory />
+      </Modal> 
+      <Modal isVisible={isLogsModalVisible} onClose={() => setLogsModalVisible(false)}>
+        <Logs />
       </Modal> 
     </div>
   );

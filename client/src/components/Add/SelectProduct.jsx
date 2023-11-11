@@ -21,7 +21,6 @@ function SelectProduct({ handleProductSelect }) {
   }, []);
   
   const handleSelectProduct = (selectedProductId) => {
-    console.log("GGGGG: ", selectedProductId);
     const selectedProduct = products.find(product => product.id === selectedProductId);
     if (selectedProduct) {
       setSelectedProduct(selectedProduct);

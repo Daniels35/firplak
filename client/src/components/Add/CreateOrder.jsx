@@ -32,7 +32,6 @@ function CreateOrder() {
       quantity: quantity,
     }));
     setProducts(simplifiedProducts);
-    console.log("Productos simplificados:", simplifiedProducts);
   };
   
   const handleCreateOrder = async (e) => {

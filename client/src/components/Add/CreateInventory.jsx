@@ -21,7 +21,6 @@ function CreateInventory({onInventoryAdded}) {
   };
 
   const handleUsuarioChange = (e) => {
-    console.log("USUARIO: ", e.target.value)
     setUsuarioId(e.target.value);
   };
 

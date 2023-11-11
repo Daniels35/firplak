@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
+import Loading from '../Loading/Loading';
 import './styleAdd.css';
 
 function CreateCategoria() {
   const [categoriaName, setCategoriaName] = useState('');
   const [categorias, setCategorias] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCategoriaNameChange = (e) => {
     setCategoriaName(e.target.value);
@@ -37,16 +39,17 @@ function CreateCategoria() {
   useEffect(() => {
     async function fetchCategorias() {
       try {
+        setIsLoading(true);
         const response = await api.get('/categorias');
         const categoriasData = response.data;
         setCategorias(categoriasData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener las categorías:', error);
       }
     }
-  
     fetchCategorias();
-  }, []);
+  },  []);
   
   return (
     <div className='categoria-container'>
@@ -71,6 +74,7 @@ function CreateCategoria() {
             </ul>
             </div>
         )}
+        <Loading isLoading={isLoading} />
         </div>
     </div>
   );

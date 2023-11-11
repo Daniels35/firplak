@@ -5,7 +5,6 @@ import './styleSee.css';
 function PodDetails(podId) {
   const id = podId.podId;
   const [podDetails, setPodDetails] = useState(null);
-  console.log("ID MODAL DETALLES: ", podDetails);
 
   useEffect(() => {
     api.get(`/pods/${id}`)

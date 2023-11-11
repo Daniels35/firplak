@@ -1,4 +1,4 @@
-.detail-product-contain, .pto1-container, .orders-contain, .pto2-container, .pod-details-component {
+.detail-product-contain, .pto1-container, .orders-contain, .pto2-container, .pod-details-component, .Logs-container {
     max-height: 70vh;
     overflow-y: auto;
 }

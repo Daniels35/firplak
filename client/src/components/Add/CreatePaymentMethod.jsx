@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
+import Loading from '../Loading/Loading';
 import './styleAdd.css';
 
 function CreatePaymentMethod() {
   const [paymentMethodName, setPaymentMethodName] = useState('');
   const [paymentMethods, setPaymentMethods] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePaymentMethodNameChange = (e) => {
     setPaymentMethodName(e.target.value);
@@ -37,9 +39,11 @@ function CreatePaymentMethod() {
   useEffect(() => {
     async function fetchPaymentMethods() {
       try {
+        setIsLoading(true);
         const response = await api.get('/payment-methods');
         const paymentMethodsData = response.data;
         setPaymentMethods(paymentMethodsData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener los métodos de pago:', error);
       }
@@ -71,6 +75,7 @@ function CreatePaymentMethod() {
             </ul>
           </div>
         )}
+        <Loading isLoading={isLoading} />
       </div>
     </div>
   );

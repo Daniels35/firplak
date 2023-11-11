@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../config/api';
+import Loading from '../Loading/Loading';
 import './styleAdd.css';
 
 function CreateColor() {
@@ -7,6 +8,7 @@ function CreateColor() {
   const [colorName2, setColorName2] = useState('');
   const [colorCode, setColorCode] = useState('');
   const [colores, setColores] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleColorName1Change = (e) => {
     setColorName1(e.target.value);
@@ -49,14 +51,15 @@ function CreateColor() {
   useEffect(() => {
     async function fetchColores() {
       try {
+        setIsLoading(true);
         const response = await api.get('/colors');
         const coloresData = response.data;
         setColores(coloresData);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error al obtener los colores:', error);
       }
     }
-  
     fetchColores();
   }, []);
   
@@ -95,6 +98,7 @@ function CreateColor() {
             </ul>
           </div>
         )}
+        <Loading isLoading={isLoading} />
       </div>
     </div>
   );
